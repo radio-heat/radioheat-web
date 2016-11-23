@@ -1,0 +1,25 @@
+﻿*,
+*::after,
+*::before
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#map
+{
+    flex: 1 1 auto;
+}
+
+#side-menu
+{
+    background-color: #d3d3d3;
+    border-left: 1px solid #000;
+    flex: 0 1 300px;
+}
