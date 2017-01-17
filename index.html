@@ -10,19 +10,18 @@
         <link href="main.css" rel="stylesheet" />
 
         <!-- import script file -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEiHNzq0ZFXb79nT01WQ7yvOfG72jsdIE&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEiHNzq0ZFXb79nT01WQ7yvOfG72jsdIE&libraries=visualization&callback=initializeGoogleMaps" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="main.js"></script>
 
         <!-- page title -->
         <title>Heatmap</title>
 
     </head>
-    <body onload="initMap();">
+    <body>
 
         <!-- map from google -->
-        <div id="map">
-            Map
-        </div>
+        <div id="map-element">Map</div>
 
         <!-- side menu -->
         <div id="side-menu">

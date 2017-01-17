@@ -12,7 +12,7 @@ body
     height: 100vh;
 }
 
-#map
+#map-element
 {
     flex: 1 1 auto;
 }
