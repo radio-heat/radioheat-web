@@ -1,3 +1,3 @@
 # RadioHeat for Web
 
-[link to web application](https://swe-team-1.github.io/radioheat-web/)
+[link to web application](http://82.165.75.129)
