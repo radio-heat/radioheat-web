@@ -6,7 +6,15 @@
 var googleMap;
 var heatMap;
 
+var existingLocations;
+
 var requestData;
+
+var totalWlanHandle;
+var totalMeasurementsHandle;
+
+var totalWlanNetworks;
+var totalMeasurements;
 
 // ---------------
 // functionality
@@ -25,9 +33,7 @@ function initializeGoogleMaps()
 
     // Initialise Heat Map
     heatMap = new google.maps.visualization.HeatmapLayer({
-        data: [],
-        dissipating: true,
-        maxIntensity: 99
+        data: []
     });
 
     heatMap.setMap(googleMap);
@@ -40,6 +46,13 @@ function initializeGoogleMaps()
         contentType: 'application/json',
         crossDomain: true
     };
+
+    // initialise existing locations
+    existingLocations = [];
+    totalWlanNetworks = 0;
+    totalMeasurements = 0;
+    totalWlanHandle = $('#count-wlan-networks');
+    totalMeasurementsHandle = $('#count-measurements');
 
     // When the map is dragged by the mouse, reload the data
     googleMap.addListener('bounds_changed', reloadData);
@@ -64,10 +77,21 @@ function reloadData()
 
         for (i = 0; i < data.length; i++)
         {
-            heatMap.data.push({
-                location: new google.maps.LatLng(data[i].latitude, data[i].longitude),
-                weight: 100 - Math.abs(data[i].strength)
-            });
+            if (existingLocations.indexOf(data[i].latitude + '-' + data[i].longitude) == -1)
+            {
+                heatMap.data.push({
+                    location: new google.maps.LatLng(data[i].latitude, data[i].longitude),
+                    weight: data[i].amount
+                });
+
+                totalWlanNetworks += parseInt(data[i].amount);
+                totalWlanHandle.text(totalWlanNetworks);
+
+                totalMeasurements++;
+                totalMeasurementsHandle.text(totalMeasurements);
+
+                existingLocations.push(data[i].latitude + '-' + data[i].longitude);
+            }
         }
 
     })
