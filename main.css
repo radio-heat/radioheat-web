@@ -1,4 +1,6 @@
-﻿*,
+﻿/* ===== tag design ===== */
+
+*,
 *::after,
 *::before
 {
@@ -7,9 +9,61 @@
 
 body
 {
+    height: 100vh;
+}
+
+h1, h2, h3
+{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+input[type="text"], select
+{
+    padding:3px;
+}
+
+main
+{
     display: flex;
     flex-direction: row;
     height: 100vh;
+}
+
+/* ===== class design ===== */
+
+.optimal-reading
+{
+    line-height: 1.5;
+}
+
+.statistics-fact
+{
+    margin-top: 10px;
+}
+
+/* ===== id design ===== */
+
+#application-loader
+{
+    background-color: rgba(50, 50, 50, 0.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+#loading-message
+{
+    background-color: #383838;
+    color: #fff;
+    left: 50%;
+    margin: auto;
+    padding: 10px;
+    position: absolute;
+    top: 20%;
+    transform: translate(-50%,-50%);
 }
 
 #map-element
@@ -25,10 +79,16 @@ body
     padding: 5px;
 }
 
-#side-menu h1
+#side-menu h2
 {
     border-bottom: 1px solid #fff;
-    margin: 0 0 10px 0;
+    margin: 10px 0 10px 0;
     padding-bottom: 10px;
     text-align: center;
+}
+
+#side-menu input[type="text"], select
+{
+    display: block;
+    width: 100%;
 }

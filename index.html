@@ -2,38 +2,78 @@
 <html>
     <head>
 
-        <!-- charset -->
+        <!-- charset of this document -->
         <meta charset="utf-8" />
+
+        <!-- import fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
         <!-- import stylesheets -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet" />
         <link href="main.css" rel="stylesheet" />
 
         <!-- import script file -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEiHNzq0ZFXb79nT01WQ7yvOfG72jsdIE&libraries=visualization&callback=initializeGoogleMaps" defer></script>
+        <script src="radioheat-api.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+        <script src="radioheat-ang.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEiHNzq0ZFXb79nT01WQ7yvOfG72jsdIE&libraries=visualization" id="googleScript"  async defer></script>
 
         <!-- page title -->
         <title>Heatmap</title>
 
     </head>
-    <body>
 
-        <!-- map from google -->
-        <div id="map-element">Map</div>
+    <!-- setting up angularjs-app (with controller) -->
+    <body data-ng-app="radioheat-web" data-ng-controller="RadioheatWebController">
 
-        <!-- side menu -->
-        <div id="side-menu">
+        <!-- the main content (map and side menu) -->
+        <main>
 
-            <h1>Statistics</h1>
-            <div>
-                <span>Total WLAN-Networks: </span><span id="count-wlan-networks"></span>
+            <!-- map from google -->
+            <div id="map-element"></div>
+
+            <!-- side menu -->
+            <aside id="side-menu">
+
+                <!-- options section -->
+                <section>
+                    <h2>Options</h2>
+
+                    <!-- adjust frequency band -->
+                    <label for="frequency-band">frequency band (in GHz)</label>
+                    <select id="frequency-band" data-ng-model="selectedFrequencyBand" data-ng-options="bands for bands in frequencyBands" data-ng-change="changeFrequencyBand()"></select>
+
+                    <!-- adjust frequency, based on selected frequency band -->
+                    <label for="individual-frequency">frequency (in MHz)</label>
+                    <select id="individual-frequency" data-ng-model="selectedFrequency" data-ng-options="frequency for frequency in frequencies" data-ng-change="changeFrequency()" data-ng-disabled="isFrequencyDisabled"></select>
+                </section>
+
+                <!-- statistics about the shown frequencies -->
+                <section>
+                    <h2>Statistics</h2>
+
+                    <!-- total shown wlan-networks -->
+                    <div class="statistics-fact">
+                        <span>Total WLAN-Networks: </span><span data-ng-bind="totalWlanNetworks"></span>
+                    </div>
+
+                    <!-- total amount of loaded measurements -->
+                    <div class="statistics-fact">
+                        <span>Total points of measurement: </span><span data-ng-bind="totalMeasurements"></span>
+                    </div>
+                </section>
+
+            </aside>
+
+        </main>
+
+        <!-- loading message -->
+        <div data-ng-show="isLoading" id="application-loader">
+            <div class="optimal-reading" id="loading-message">
+                The page is loading..<br />
+                Please wait a moment.
             </div>
-            <div>
-                <span>Total points of measurement: </span><span id="count-measurements"></span>
-            </div>
-
         </div>
 
     </body>
